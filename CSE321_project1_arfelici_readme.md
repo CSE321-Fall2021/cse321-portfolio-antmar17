@@ -89,6 +89,20 @@ API and Built In Elements Used
 ----------
 API's: 
     - mbed: allows for streamlined interaction between C plus plus and the NUCLEO-L4R5ZI hardware.
+
+Built In Elements Used:
+    1.Thread
+        Allows the instantiating of a thread to allow for scheduleing and priority managment. The thread is also given a function as a parameter
+        to define it's behavior.
+        
+    2.DigitalOut
+       Allows you to set up a GPIO pin as an output.
+
+    3.InterruptIn
+        This creates a reference to an interrupt with a variable name to allow additional interaction. This interrupt is triggered by the button, with actions on both rise and fall of the signal. 
+        There are methods to configure the interrupt, specifically: rise and fall
+
+
 ----------
 Declarations
 ----------
@@ -113,26 +127,6 @@ CSE321_project1_arfelici_corrected_code.cpp:
         Type: int
         Purpouse: value that symbolizes when the LED is flashing and when it isn't (0 for flashing and 1 for not flashing)
 
-p1_code_provided.cpp:
-    -controller:
-        Type:Thread              
-        Purpouse: Instantiates a thread to drive an LED to have an on time of 2000ms and off time 500ms
-
-    -fire(LED2):
-        Type:DigitalOut        
-        Purpouse:Establish blue led on pin PB_7 as an output
-
-    -cherish(BUTTON1):
-        Type:InterruptIn
-        Purpouse: Establish button 1 as an input on pin PB_15 
-
-    -unicorn:
-        Type: int
-        Purpouse: value that symbolizes when Button 1 is being pressed (0 for not pressed and 1 for pressed)
-
-    -zombie:
-        Type: int
-        Purpouse: value that symbolizes when the LED is flashing and when it isn't (0 for flashing and 1 for not flashing)
 
 CSE321_project1_arfelici_template.cpp:
     None
@@ -161,25 +155,6 @@ CSE321_project1_arfelici_corrected_code.cpp:
             This function defines the controller Threads behavior on Fall. 
             Toggles LED flashing state to allow the controller Thread to flash the light.
 
-CSE321_project1_arfelici_corrected_code.cpp:
-    -saveTheWorld:
-        Input:None
-        Output:Void              
-        Purpouse: 
-            Defines the logic of the controller thread which is to toggle the blinking LED
-
-    -live_or_die:
-        Input:None
-        Output:Void              
-        Purpouse: 
-            This function toggles the buttonPressed state of Thread allowing the onFall function to activate
-            
-
-    -wrong_or_not:
-        Type:InterruptIn
-        Purpouse: 
-            This function defines the controller Threads behavior on Fall. 
-            Toggles LED flashing state to allow the controller Thread to flash the light.
 
 
 
