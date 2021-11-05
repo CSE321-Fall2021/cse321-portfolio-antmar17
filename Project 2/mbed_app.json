@@ -1,0 +1,13 @@
+{   
+    "requires":["bare-metal","events"],
+    "target_overrides": {
+        "*": {
+            "platform.callback-nontrivial":true
+        }
+    }
+    
+       
+  
+   
+  
+}

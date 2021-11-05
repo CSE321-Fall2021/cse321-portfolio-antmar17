@@ -18,10 +18,6 @@ Features
     2.User can stop timer
     3.User can start timer 
     4.User can input a custom time. 
-
-    
-
-
 --------------------
 Required Materials
 --------------------
@@ -68,10 +64,6 @@ Files
         Institution: University at Buffalo, Engineering and Applied Sciences Department
         Address: Buffalo, NY 14260
         Email: arfelici@buffalo.edu
-    
-
-
-
 ----------
 API and Built In Elements Used
 ----------
@@ -79,12 +71,11 @@ API's:
     - mbed: allows for streamlined interaction between C plus plus and the NUCLEO-L4R5ZI hardware.
 
 Built In Elements Used:
-    1.Thread
-        Allows the instantiating of a thread to allow for scheduleing and priority managment. The thread is also given a function as a parameter
-        to define it's behavior.
-        
-    2.DigitalOut
-       Allows you to set up a GPIO pin as an output.
+    1.Event Queue
+        Allows atomic operations of events and is used to counteract bounce
+    
+    2.Ticker 
+        Allows for consistent interrupt operations to be executed in a given interval
 
     3.InterruptIn
         This creates a reference to an interrupt with a variable name to allow additional interaction. This interrupt is triggered by the button, with actions on both rise and fall of the signal. 
@@ -98,23 +89,37 @@ Built In Elements Used:
 Declarations
 ----------
 CSE321_project1_arfelici_main.cpp:
-    -max_seconds:
-     Type: int
-     Purpouse: max amount of seconds allowed            
+    -queue:
+     Type: EventQueue
+     Purpouse: allows atomic operations of function calls        
 
-    -current_seconds:
-        Type: int
-        Purpouse: current amount of seconds allowed            
+    -column1:
+        Type: InterruptIn
+        Purpouse: allows for Interrupts to be called on given port            
     
-    -timer_active:          
-        Type: bool 
-        Purpouse: boolean to represent when the timer should be counting down
+    -mainTicker;         
+        Type: Ticker 
+        Purpouse: Tiicker object for the main loop that controls row power
 
-    -timer:
+    -TimerTicker:
         Type: Ticker 
         Purpouse: Ticker object to keep track of time
-
-
+    
+    - TimeLeft
+        Type: int 
+        Purpouse: represents time left in seconds
+    
+    - TimerActive
+        Type: bool
+        Purpouse: state variable for timer
+    
+    -rowNum
+        Type:int
+        Purpouse:represent row number that is being powered
+    
+    -lcdObj
+        Type:CSE321_LCD
+        Purpouse: LCD object to control LCD functions 
 
 
 ----------
@@ -122,24 +127,54 @@ Custom Functions
 ----------
 
 CSE321_project2_arfelici_main.cpp:
+    -void main_loop():
+        -Type:void 
+        -Purpouse: main loop to be put in main ticker.Powers rows
+    
+    -void initialize_registers():
+        -Type: void
+        -Purpouse: Activates registers clocks and put outputs and inputs into appropraite configuration
+    
+    -void handle_button_pressed(int row):
+        -Type:void 
+        -Purpouse: sub routine to handle all button presses
+    
+    -void handle_timer():
+        -Type:void
+        -Purpouse:
+    
+    -void get_user_input():
+        -Type: void 
+        -Purpouse: gets the user input of minutes and seconds via the scanf function 
+    
+    -void start_timer():
+        -Type: void 
+        -Purpouse: Starts the timer
 
-    -void isr_a(void):
-        Type: void 
-        Purpouse: onRise for A button will start the timer.
-        
-    -void isr_b(void):
-        Type: void 
-        Purpouse: onRise for B button will stop the timer.
-        
-    -void isr_d(void):
-        Type: void 
-        Purpouse: onRise for D button will take time from user.
-        
-    -void isr_Tick(void):
-        Type: void 
-        Purpouse: interval interrupt for counting down the timer value
-  
+    -void stop_timer():
+        -Type: void
+        -Purpouse: starts the timer
 
+    -char *concat(const char *s1, const char *s2):
+        -Type: char*
+        -Purpouse: concatenates two strings
 
+    -void row1(bool on):
+        -Type: void
+        -Purpouse: turns on row1
 
+    -void row2(bool on):
+        -Type:void
+        -Purpouse: turns on row2
 
+    -void row3(bool on):
+        -Type:void
+        -Purpouse:turns on row3
+
+    -void blink1(bool on):
+        -Type: void
+        -Purpouse: turns on first blinker light
+
+    -void blink2(bool on):
+        -Type: boid
+        -Purpouse: turns on second blinker light
